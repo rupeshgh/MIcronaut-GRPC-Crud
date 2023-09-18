@@ -1,0 +1,43 @@
+syntax="proto3";
+
+package com.grpc;
+
+option java_multiple_files=true;
+option java_package="com.studentportal.grpc";
+
+service StudentService {
+
+    rpc addStudent(Student) returns (CreatedResponse);
+    rpc getStudent(Id) returns(Student);
+    rpc getAllStudents(EmptyRequest) returns(StudentsList);
+    rpc changeEmail(EmailChange) returns (Student);
+    rpc deleteStudent(Id) returns (Student);
+    rpc studentClientStream(stream Student) returns (Empty);
+
+}
+message Student{
+    string name=1;
+    string email=2;
+    int32 standard=3;
+
+}
+
+message Empty{}
+message EmptyRequest{}
+
+message StudentsList{
+    repeated Student Students=1;
+}
+
+message Id{
+    int32 id=1;
+}
+message EmailChange{
+    string email=1;
+    Id ID=2;
+}
+message CreatedResponse {
+    string message=1;
+}
+
+
